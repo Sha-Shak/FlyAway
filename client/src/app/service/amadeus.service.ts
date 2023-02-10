@@ -8,9 +8,9 @@ import { Flight } from '../interfaces/flight';
   providedIn: 'root',
 })
 export class AmadeusService {
-  constructor(private apiClient: HttpClient) { }
+  constructor(private apiClient: HttpClient) {}
 
-  apiUrl = 'https://flyaway.fly.dev/';
+  apiUrl = 'https://flyaway.fly.dev';
   month: any = '';
   day: any = '';
   // responseData: any = []

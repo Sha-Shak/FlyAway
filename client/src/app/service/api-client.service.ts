@@ -10,12 +10,12 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class ApiClientService {
-  rootUrl = 'https://flyaway.fly.dev/';
+  rootUrl = 'https://flyaway.fly.dev';
   // token = this.auth.getToken();
   selectedFlights: Flight[] = [];
   totalPrice!: number;
 
-  constructor(private httpClient: HttpClient, private auth: AuthService) { }
+  constructor(private httpClient: HttpClient, private auth: AuthService) {}
 
   getProfile(): Observable<User> {
     // console.log(this.token)

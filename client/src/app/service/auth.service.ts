@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/User';
 import { Observable } from 'rxjs';
 import { Login } from '../interfaces/Login';
+import { User } from '../interfaces/User';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  authUrl = 'https://flyaway.fly.dev/';
+  authUrl = 'https://flyaway.fly.dev';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   signUp(user: User): Observable<User> {
     return this.httpClient.post<User>(`${this.authUrl}/signup`, user);
