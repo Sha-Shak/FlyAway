@@ -10,7 +10,7 @@ import { Flight } from '../interfaces/flight';
 export class AmadeusService {
   constructor(private apiClient: HttpClient) {}
 
-  apiUrl = 'https://flyaway.fly.dev';
+  apiUrl = 'https://awayfly.fly.dev';
   month: any = '';
   day: any = '';
   // responseData: any = []

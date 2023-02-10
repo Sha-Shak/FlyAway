@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class ApiClientService {
-  rootUrl = 'https://flyaway.fly.dev';
+  rootUrl = 'https://awayfly.fly.dev';
   // token = this.auth.getToken();
   selectedFlights: Flight[] = [];
   totalPrice!: number;

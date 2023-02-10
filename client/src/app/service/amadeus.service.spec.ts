@@ -21,7 +21,7 @@ describe('AmadeusService', () => {
     let result = service.airportSearch('dhaka').subscribe((airports) => {
       // expect(http.get).toHaveBeenCalled();
       expect(http.get).toHaveBeenCalledWith(
-        'https://flyaway.fly.dev/aiport/dhaka'
+        'https://awayfly.fly.dev/aiport/dhaka'
       );
     });
   });
@@ -40,7 +40,7 @@ describe('AmadeusService', () => {
     let result = service.airportRoute('DAC').subscribe((airports) => {
       // expect(http.get).toHaveBeenCalled();
       expect(http.get).toHaveBeenCalledWith(
-        'https://flyaway.fly.dev/search-airports-routes/DAC'
+        'https://awayfly.fly.dev/search-airports-routes/DAC'
       );
     });
   });
@@ -52,4 +52,4 @@ describe('AmadeusService', () => {
   });
 });
 
-//'https://flyaway.fly.dev/search-airports-routes/${iataCode}'
+//'https://awayfly.fly.dev/search-airports-routes/${iataCode}'

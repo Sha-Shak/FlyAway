@@ -7,7 +7,7 @@ import { User } from '../interfaces/User';
   providedIn: 'root',
 })
 export class AuthService {
-  authUrl = 'https://flyaway.fly.dev';
+  authUrl = 'https://awayfly.fly.dev';
 
   constructor(private httpClient: HttpClient) {}
 

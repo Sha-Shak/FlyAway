@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiClientService } from 'src/app/service/api-client.service';
+import { StripeService } from 'ngx-stripe';
 import { switchMap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import {StripeService} from 'ngx-stripe'
+import { ApiClientService } from 'src/app/service/api-client.service';
 @Component({
   selector: 'app-confirm-flights-page',
   templateUrl: './confirm-flights-page.component.html',
@@ -18,8 +18,12 @@ export class ConfirmFlightsPageComponent {
   isCompleted = true;
   isLinear = true;
 
-  constructor(private route: Router, private flightService: ApiClientService,
-    private http:HttpClient, private stripeService : StripeService) { }
+  constructor(
+    private route: Router,
+    private flightService: ApiClientService,
+    private http: HttpClient,
+    private stripeService: StripeService
+  ) {}
 
   ngOnInit() {
     //this.invokeStripe();
@@ -29,39 +33,27 @@ export class ConfirmFlightsPageComponent {
   checkout() {
     // Check the server.js tab to see an example implementation
 
-    localStorage.setItem("trip", JSON.stringify(this.selectedFlights))
+    localStorage.setItem('trip', JSON.stringify(this.selectedFlights));
     this.http
-      .post('https://flyaway.fly.dev/create-checkout-session', {price : this.totalPrice})
+      .post('https://awayfly.fly.dev/create-checkout-session', {
+        price: this.totalPrice,
+      })
       .pipe(
         switchMap((session: any) => {
-
           return this.stripeService.redirectToCheckout({
             sessionId: session.id,
-
           });
           //
-
         })
-
-
       )
       .subscribe((result: any) => {
-
         // If `redirectToCheckout` fails due to a browser or network
         // error, you should display the localized error message to your
         // customer using `error.message`.
         if (result.error) {
-          alert('error happened')
-
-
+          alert('error happened');
+        } else {
         }
-
-        else {
-
-
-
-        }
-
       });
   }
 
@@ -119,12 +111,7 @@ export class ConfirmFlightsPageComponent {
   }
 
   //checkout function is comming for test
-
-
-
 }
-
-
 
 //  confirmedFlight = [
 //     {

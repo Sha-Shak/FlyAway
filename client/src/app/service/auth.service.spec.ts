@@ -35,7 +35,7 @@ describe('Auth service', () => {
       .subscribe((airports) => {
         // expect(http.get).toHaveBeenCalled();
         expect(http.post).toHaveBeenCalledWith(
-          'https://flyaway.fly.dev/signin'
+          'https://awayfly.fly.dev/signin'
         );
       });
   });
@@ -48,7 +48,7 @@ describe('Auth service', () => {
 
   it('Should call the signup endpoint', () => {
     service.signUp(profile).subscribe((res) => {
-      expect(http.post).toHaveBeenCalledWith('https://flyaway.fly.dev/signup');
+      expect(http.post).toHaveBeenCalledWith('https://awayfly.fly.dev/signup');
     });
   });
 

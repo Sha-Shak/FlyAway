@@ -74,10 +74,10 @@ describe('API Client Service', () => {
   const provide = (mock: any): any => mock;
 
   service = new ApiClientService(provide(http) as any, provide(auth) as any);
-  test('Should call the APi with URL "https://flyaway.fly.dev/tripList"', () => {
+  test('Should call the APi with URL "https://awayfly.fly.dev/tripList"', () => {
     let result = service.getTripList().subscribe((airports) => {
       // expect(http.get).toHaveBeenCalled();
-      expect(http.get).toHaveBeenCalledWith('https://flyaway.fly.dev/tripList');
+      expect(http.get).toHaveBeenCalledWith('https://awayfly.fly.dev/tripList');
     });
   });
 
