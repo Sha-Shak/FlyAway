@@ -31,37 +31,37 @@ export class ConfirmFlightsPageComponent {
 
     localStorage.setItem("trip", JSON.stringify(this.selectedFlights))
     this.http
-      .post('http://localhost:3000/create-checkout-session', {price : this.totalPrice})
+      .post('https://flyaway.fly.dev/create-checkout-session', {price : this.totalPrice})
       .pipe(
         switchMap((session: any) => {
-          
+
           return this.stripeService.redirectToCheckout({
             sessionId: session.id,
-            
+
           });
-          // 
-          
+          //
+
         })
-        
-        
+
+
       )
       .subscribe((result: any) => {
-      
+
         // If `redirectToCheckout` fails due to a browser or network
         // error, you should display the localized error message to your
         // customer using `error.message`.
         if (result.error) {
           alert('error happened')
-          
-         
+
+
         }
-        
+
         else {
-          
-         
-          
+
+
+
         }
-    
+
       });
   }
 
@@ -91,7 +91,7 @@ export class ConfirmFlightsPageComponent {
   //   });
 
   //   this.flightService.createTripList(this.selectedFlights).subscribe(res=>console.log(res));
-    
+
   // }
   // invokeStripe() {
   //   if (!window.document.getElementById('stripe-script')) {
@@ -107,7 +107,7 @@ export class ConfirmFlightsPageComponent {
   //           this.selectedFlights.stripe = true;
   //           console.log(this.selectedFlights);
   //           //alert('Payment has been successfull!');
-            
+
   //         },
   //       });
   //     };
@@ -119,9 +119,9 @@ export class ConfirmFlightsPageComponent {
   }
 
   //checkout function is comming for test
-  
-  
-  
+
+
+
 }
 
 
