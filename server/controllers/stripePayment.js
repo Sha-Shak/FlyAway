@@ -21,8 +21,8 @@ const successPayment = async (req, res) => {
             },
         ],
         mode: "payment",
-        success_url: "http://localhost:4200/success",
-        cancel_url: "http://localhost:4200",
+        success_url: "https://fly-away.vercel.app/success",
+        cancel_url: "https://fly-away.vercel.app",
     });
     res.json({ id: session.id });
 };
