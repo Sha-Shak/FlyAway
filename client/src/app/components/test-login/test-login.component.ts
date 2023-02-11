@@ -1,29 +1,32 @@
-import { AmadeusService } from './../../service/amadeus.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { AmadeusService } from './../../service/amadeus.service';
 
 @Component({
   selector: 'app-test-login',
   templateUrl: './test-login.component.html',
-  styleUrls: ['./test-login.component.css']
+  styleUrls: ['./test-login.component.css'],
 })
 export class TestLoginComponent implements OnInit {
-
-  constructor(private fb: FormBuilder,private amadeusApi: AmadeusService) { 
-  }
+  constructor(private fb: FormBuilder, private amadeusApi: AmadeusService) {}
   ngOnInit(): void {
-    this.test()
+    this.test();
   }
 
   loginForm = new FormGroup({
-    email: new FormControl('',[Validators.required,Validators.email]),
-    password: new FormControl('',Validators.required)
-  })
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  });
 
-  signup(){
+  signup() {
     console.log(this.loginForm.value);
   }
-  test(){
-    this.amadeusApi.flightSearch();
+  test() {
+    // this.amadeusApi.flightSearch();
   }
 }

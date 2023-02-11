@@ -34,7 +34,7 @@ export class AmadeusService {
       this.day = `0${this.day}`;
     }
     let date = `${year}-${this.month}-${this.day}`;
-    console.log(newLeg);
+   // console.log(newLeg);
     return this.apiClient.get<Flight[]>(
       `${this.apiUrl}/flight-search?originCode=${newLeg.originCode}&destinationCode=${newLeg.destinationCode}&dateOfDeparture=${date}`
     );

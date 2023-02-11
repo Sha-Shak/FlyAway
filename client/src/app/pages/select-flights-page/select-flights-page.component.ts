@@ -1,11 +1,11 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Flight } from 'src/app/interfaces/flight';
-import { FlightService } from 'src/app/service/flight.service';
-import { ApiClientService } from 'src/app/service/api-client.service';
-import { FlightOption } from 'src/app/interfaces/flightOption';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import { Flight } from 'src/app/interfaces/flight';
+import { FlightOption } from 'src/app/interfaces/flightOption';
+import { ApiClientService } from 'src/app/service/api-client.service';
+import { FlightService } from 'src/app/service/flight.service';
 
 @Component({
   selector: 'app-select-flights-page',
@@ -15,7 +15,7 @@ import { AnimationOptions } from 'ngx-lottie';
 export class SelectFlightsPageComponent {
   msg: string = '';
   isError: boolean = false;
-  
+
   flights!: Flight[];
 
   totalPrice: number = 0;
@@ -29,11 +29,10 @@ export class SelectFlightsPageComponent {
   };
 
   onAnimate(animationItem: AnimationItem): void {
-    console.log(animationItem);
+   // console.log(animationItem);
   }
 
   ngOnInit() {
-
     this.searchResults = this._FlightService.getSearchedFlights();
   }
 
@@ -41,16 +40,16 @@ export class SelectFlightsPageComponent {
     private route: Router,
     public _FlightService: FlightService,
     private flightService: ApiClientService
-  ) { }
+  ) {}
 
   handleSelect(flight: Flight) {
     this.isError = false;
     const newFlightList = this.selectedFlight.filter((fl) => {
       if (
         flight.segments[0].departure.iataCode ==
-        fl.segments[0].departure.iataCode &&
+          fl.segments[0].departure.iataCode &&
         flight.segments[flight.segments.length - 1].arrival.iataCode ==
-        fl.segments[fl.segments.length - 1].arrival.iataCode
+          fl.segments[fl.segments.length - 1].arrival.iataCode
       ) {
         return false;
       } else return true;
@@ -63,23 +62,22 @@ export class SelectFlightsPageComponent {
       0
     );
     this.flightService.setSelectedFlights(this.selectedFlight, this.totalPrice);
-    console.log(this._FlightService.getSearchedFlights());
+   // console.log(this._FlightService.getSearchedFlights());
   }
 
   confirm() {
-    console.log("confirm flight clicked")
+   // console.log('confirm flight clicked');
     if (this.selectedFlight.length === this.searchResults.length) {
       this.isError = false;
       this.route.navigate(['/confirm-flights']);
-      console.log("confirm flight clicked and went to if block")
+     // console.log('confirm flight clicked and went to if block');
     } else {
-      console.log("confirm flight clicked but went to else block")
+      //console.log('confirm flight clicked but went to else block');
       this.isError = true;
       this.msg = 'Select at least one flight from each option!';
       // setTimeout(()=>{
       //   this.isError = false;
       // },3000)
-      
     }
   }
 }

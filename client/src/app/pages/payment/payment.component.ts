@@ -5,19 +5,18 @@ import { ApiClientService } from 'src/app/service/api-client.service';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent {
   selectedFlights = this.flightService.getSelectedFlights();
   totalPrice = this.flightService.getTotalPriceOfSelectedFlights();
 
-  isCompleted=true;
+  isCompleted = true;
   isLinear = true;
   confirm = true;
 
-
   constructor(private route: Router, private flightService: ApiClientService) {}
-  
+
   ngOnInit() {
     this.selectedFlights = this.flightService.getSelectedFlights();
     console.log('Selected flights service: ', this.selectedFlights);
@@ -63,5 +62,4 @@ export class PaymentComponent {
   //     window.document.body.appendChild(script);
   //   }
   // }
-
 }

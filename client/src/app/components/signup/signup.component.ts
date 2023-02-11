@@ -1,36 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-import { AuthService } from 'src/app/service/auth.service';
-import { Router } from '@angular/router';
-import countries from '../../_files/countries.json'
-import { map, Observable, startWith } from 'rxjs';
 import { Country } from 'src/app/interfaces/countries';
-
+import { AuthService } from 'src/app/service/auth.service';
+import countries from '../../_files/countries.json';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
-
-  countryList:Country[] = countries
+  countryList: Country[] = countries;
   hidePass: boolean = true;
   hideConfirmPass: boolean = true;
-  
+
   isSubmitted: boolean = false;
   userError: string = '';
   isError: boolean = false;
   isPassError: boolean = false;
- 
+
   today = new Date();
   minAge = 18;
-  validAge = new Date(this.today.getFullYear() - this.minAge, this.today.getMonth(), this.today.getDate());
+  validAge = new Date(
+    this.today.getFullYear() - this.minAge,
+    this.today.getMonth(),
+    this.today.getDate()
+  );
 
-
-  
   // options = this.countryList;
   // filteredOptions: Observable<Country[]> | undefined;
 
@@ -63,53 +62,78 @@ export class SignupComponent {
     dateOfBirth: new FormControl(''),
     phoneNumber: new FormControl(''),
     country: new FormControl(''),
-    passport: new FormControl('')
+    passport: new FormControl(''),
   });
 
   options: AnimationOptions = {
-    path: './assets/46541-nature-visite-travel.json'
+    path: './assets/46541-nature-visite-travel.json',
   };
 
-  constructor(private auth: AuthService,
-    private router: Router, ) { }
+  constructor(private auth: AuthService, private router: Router) {}
 
-  onAnimate(animationItem: AnimationItem): void {
-  }
+  onAnimate(animationItem: AnimationItem): void {}
 
   signup() {
-    let { firstName, lastName, email, passport, dateOfBirth, password, confirmPassword, country, phoneNumber } = this.signupForm.value;
+    let {
+      firstName,
+      lastName,
+      email,
+      passport,
+      dateOfBirth,
+      password,
+      confirmPassword,
+      country,
+      phoneNumber,
+    } = this.signupForm.value;
 
-    if (firstName && lastName && email && passport && dateOfBirth && password && confirmPassword && country && phoneNumber) {
-
+    if (
+      firstName &&
+      lastName &&
+      email &&
+      passport &&
+      dateOfBirth &&
+      password &&
+      confirmPassword &&
+      country &&
+      phoneNumber
+    ) {
       this.isError = false;
 
       if (password === confirmPassword) {
-
         this.isPassError = false;
         let dob = new Date(dateOfBirth);
-      
-        this.auth.signUp({ firstName, lastName, email, passport, password, country, phoneNumber, dob }).subscribe({
-          next: response => {
-            console.log(response);
-            this.isError = false;
-            this.isSubmitted = true;
-            this.signupForm.reset();
-            
-            setTimeout(() => {
-              this.router.navigate(['/login']);
-            }, 1000)
-          },
-          error: error => {
-            this.userError = error.error.message;
-            this.isError = true;
-          }
-        });
-      }
-      else {
+
+        this.auth
+          .signUp({
+            firstName,
+            lastName,
+            email,
+            passport,
+            password,
+            country,
+            phoneNumber,
+            dob,
+          })
+          .subscribe({
+            next: (response) => {
+            //  console.log(response);
+              this.isError = false;
+              this.isSubmitted = true;
+              this.signupForm.reset();
+
+              setTimeout(() => {
+                this.router.navigate(['/login']);
+              }, 1000);
+            },
+            error: (error) => {
+              this.userError = error.error.message;
+              this.isError = true;
+            },
+          });
+      } else {
         this.isPassError = true;
         this.userError = 'Password did not match';
       }
     }
-
   }
 }

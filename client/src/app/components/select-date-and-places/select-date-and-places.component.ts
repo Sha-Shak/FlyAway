@@ -18,12 +18,15 @@ export class SelectDateAndPlacesComponent implements OnInit {
   }
 
   isLoading: boolean = false;
-  disable: boolean = true
+  disable: boolean = true;
 
-  constructor(private amadeusClient: AmadeusService, public dialog: MatDialog) { }
+  constructor(
+    private amadeusClient: AmadeusService,
+    public dialog: MatDialog
+  ) {}
 
-  @Input() isSuccess!: Boolean
-  @Input() isFailed!: Boolean
+  @Input() isSuccess!: Boolean;
+  @Input() isFailed!: Boolean;
   @Input() addNewLocation!: () => void;
   @Input() travelFormArray: any;
   travelForm!: FormGroup;
@@ -41,7 +44,7 @@ export class SelectDateAndPlacesComponent implements OnInit {
 
   filteredOption!: Observable<any>;
   filteredOptionTo!: Observable<any>;
-  toField: string = "";
+  toField: string = '';
 
   //user cannot select the preivous date for the flight ticket
   minDate = new Date();
@@ -60,7 +63,6 @@ export class SelectDateAndPlacesComponent implements OnInit {
       this.minDate = prevDate;
       let selectedValue = toValue.replace(/\s/g, '').split('-');
 
-
       const selectedValueObj = {
         city: selectedValue[0],
         iata: selectedValue[1],
@@ -72,14 +74,13 @@ export class SelectDateAndPlacesComponent implements OnInit {
     this.travelForm.valueChanges.subscribe((value) => {
       this.getAirports(value.from);
       Object.assign(this.newLeg, value);
-      this.checkDisable()
+      this.checkDisable();
     });
 
-    this.travelForm.get('to')?.valueChanges.subscribe(value => {
+    this.travelForm.get('to')?.valueChanges.subscribe((value) => {
       this.toField = value;
-    })
+    });
   }
-
 
   private _filter(value: any): any {
     return this.locationArray.filter((location: { city: string | any[] }) =>
@@ -87,7 +88,6 @@ export class SelectDateAndPlacesComponent implements OnInit {
     );
   }
   // varibale for to filed
-
 
   //matchedCity: any = []
 
@@ -100,27 +100,21 @@ export class SelectDateAndPlacesComponent implements OnInit {
 
   // }
 
-
-
   //cityKeyValue: any = []
-  matchedCity: any = []
+  matchedCity: any = [];
 
   toFilter(event: any): any {
-    this.matchedCity = [...this.toLocationArray]
+    this.matchedCity = [...this.toLocationArray];
     this.matchedCity = this.matchedCity.filter((obj: any) => {
-      return obj.city.includes(this.toField.toUpperCase())
-    })
-    //console.log(this.matchedCity)
-    
-
+      return obj.city.includes(this.toField.toUpperCase());
+    });
   }
 
-  checkDisable(){
-    if(this.travelForm.valid){
-      this.disable = false
-    }
-    else{
-      this.disable = true
+  checkDisable() {
+    if (this.travelForm.valid) {
+      this.disable = false;
+    } else {
+      this.disable = true;
     }
   }
 
@@ -129,21 +123,16 @@ export class SelectDateAndPlacesComponent implements OnInit {
   //   console.log("date clicked")
   // }
 
-  searchFlightFunc(){
-    if(this.travelForm.valid){
-      console.log(this.travelForm.value)
-      this.formSubmitEvent.emit({...this.item, ...this.travelForm.value})
-      
+  searchFlightFunc() {
+    if (this.travelForm.valid) {
+      this.formSubmitEvent.emit({ ...this.item, ...this.travelForm.value });
+    } else {
+      this.disable = true;
     }
-    else{
-      this.disable = true
-    }
-
   }
 
-  removeItem(){
-    console.log("remove Item", this.travelForm.value)
-    this.deleteItemEvent.emit(this.item)
+  removeItem() {
+    this.deleteItemEvent.emit(this.item);
   }
 
   getAirports(cityName: string) {
@@ -157,28 +146,27 @@ export class SelectDateAndPlacesComponent implements OnInit {
     const { iata } = airportRoutes;
     this.amadeusClient.airportRoute(iata).subscribe((res) => {
       this.toLocationArray = res;
-      this.isLoading = false;      
-    })
-     error: ((error: any) => console.log("Location not found"));
+      this.isLoading = false;
+    });
+    error: (error: any) => console.log('Location not found');
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(PopupComponent,{
-      data:{
+    const dialogRef = this.dialog.open(PopupComponent, {
+      data: {
         message: 'Are you sure want to delete?',
         buttonText: {
           ok: 'Yes',
-          cancel: 'No'
-        }
-      }
+          cancel: 'No',
+        },
+      },
     });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-       this.removeItem();
-       console.log("Flight has been removed");
+        this.removeItem();
+      //  console.log('Flight has been removed');
       }
     });
   }
-
 }

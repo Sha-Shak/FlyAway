@@ -31,7 +31,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
     private auth: AuthService,
     private router:Router
-    ) { 
+    ) {
       localStorage.clear();
     }
 
@@ -44,7 +44,7 @@ export class LoginComponent {
       this.auth.login(this.loginForm.value.email!, this.loginForm.value.password!).subscribe({
         next: (response: any) => {
 
-          console.log(response.body.email);
+        
           localStorage.setItem('token', response.headers.get('authorization'));
           localStorage.setItem('user', response.body.email);
 
@@ -55,7 +55,7 @@ export class LoginComponent {
           setTimeout(() => {
             this.router.navigate(['search-flights']);
           }, 1000)
-          
+
         },
         error: error => {
           this.userError = error.error.message;
